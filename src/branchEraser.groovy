@@ -22,3 +22,31 @@ def executeShellCommand = { shellCommand, workingDir ->
 }
 
 println "Hello, World!"
+
+// Шорткат для выполнения команды Git
+// gitCommand - строка, содержащая команду
+// Возвращаемое значение: консольный вывод команды
+def executeGitCommand = { gitCommand ->
+    executeShellCommand(gitCommand, repositoryDir)
+}
+
+def mergedBranchesOutput = executeGitCommand('git branch --merged master')
+mergedBranchesOutput.eachLine { branchLine ->
+    // Определение имени локальной ветки с помощью регулярного выражения
+    def matcher = branchLine =~ /^\s*\*?\s*([^\s]*)$/
+    if (!matcher) {
+        return
+    }
+    def branch = matcher[0][1]
+
+    if (// Если вообще можно удалять ветку с таким именем
+    !BRANCHES_TO_KEEP_ANYWAY.contains(branch) &&
+            // в ветке не было активности после указанной даты
+            getLastCommitDate(branch) < removeBeforeDate &&
+            // и задача закрыта в багтрекере
+            isTaskClosed(branch)) {
+
+        // Удаление локальной ветки
+        print executeGitCommand("git branch -d $branch")
+    }
+}
