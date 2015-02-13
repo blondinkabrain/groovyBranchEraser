@@ -19,6 +19,6 @@ def executeShellCommand = { shellCommand, workingDir ->
     }
 
     out.toString()
-    println('hello world');
-    println "Hello, World!"
 }
+
+println "Hello, World!"
