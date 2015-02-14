@@ -56,8 +56,8 @@ mergedBranchesOutput.eachLine { branchLine ->
     // Если вообще можно удалять ветку с таким именем
     !BRANCHES_TO_KEEP_ANYWAY.contains(branchLine)) {
 
-    // Удаление локальной ветки
-    print executeGitCommand("git branch -d $branchLine")
+        // Удаление локальной ветки
+        print executeGitCommand("git branch -d $branchLine")
     }
 }
 /*
