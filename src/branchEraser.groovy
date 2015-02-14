@@ -11,6 +11,8 @@ if (args.size() < 1) {
     println "Usage: branchEraser repository-dir [remove-before-date]"
     return
 }
+def repositoryDir = new File(args[0])
+
 def executeShellCommand = { shellCommand, workingDir ->
     def shellCommandProc = shellCommand.execute(null, workingDir)
 
@@ -35,6 +37,13 @@ println "Hello, World!"
 def executeGitCommand = { gitCommand ->
     executeShellCommand(gitCommand, repositoryDir)
 }
+
+// Скрипт нужно выполнять из ветки 'master'
+print executeGitCommand('git checkout master')
+
+// Обновляем список удаленных веток
+print executeGitCommand('git fetch')
+print executeGitCommand('git remote prune origin')
 
 def mergedBranchesOutput = executeGitCommand('git branch --merged master')
 mergedBranchesOutput.eachLine { branchLine ->
