@@ -41,7 +41,7 @@ if (!repositoryDir.exists() || executeGitCommand('git rev-parse --git-dir').trim
 
 // Скрипт нужно выполнять из ветки 'master'
 print executeGitCommand('git checkout master')
-executeGitCommand('git checkout -d test')
+
 executeGitCommand('git checkout -b test')
 
 def goToTestBranch = executeGitCommand('git checkout test')
@@ -53,5 +53,5 @@ def createBranches= {param ->
     }
 }
 createBranches()
-
+executeGitCommand('git branch -d test')
 print executeGitCommand('git checkout master')

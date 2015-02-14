@@ -7,11 +7,12 @@
 // Возвращаемое значение: консольный вывод команды
 final BRANCHES_TO_KEEP_ANYWAY = ['master', 'development', 'HEAD']
 
-if (args.size() < 1) {
-    println "Usage: branchEraser repository-dir [remove-before-date]"
+if (args.size() < 2) {
+    println "Usage: branchEraser repository-dir branchStartName"
     return
 }
 def repositoryDir = new File(args[0])
+def startBranch = args[1].trim()
 
 def executeShellCommand = { shellCommand, workingDir ->
     def shellCommandProc = shellCommand.execute(null, workingDir)
@@ -29,7 +30,6 @@ def executeShellCommand = { shellCommand, workingDir ->
     out.toString()
 }
 
-println "Hello, World!"
 
 // Шорткат для выполнения команды Git
 // gitCommand - строка, содержащая команду
@@ -45,24 +45,19 @@ print executeGitCommand('git checkout master')
 print executeGitCommand('git fetch')
 print executeGitCommand('git remote prune origin')
 
-def mergedBranchesOutput = executeGitCommand('git branch --merged master')
+def mergedBranchesOutput = executeGitCommand('git branch')//('git branch --merged master')
 mergedBranchesOutput.eachLine { branchLine ->
-    // Определение имени локальной ветки с помощью регулярного выражения
-    def matcher = branchLine =~ /^\s*\*?\s*([^\s]*)$/
-    if (!matcher) {
-        return
-    }
-    def branch = matcher[0][1]
+    branchLine = branchLine.replaceAll(" ", "")
 
-    if (// Если вообще можно удалять ветку с таким именем
-    !BRANCHES_TO_KEEP_ANYWAY.contains(branch) &&
-            // в ветке не было активности после указанной даты
-            getLastCommitDate(branch) < removeBeforeDate &&
-            // и задача закрыта в багтрекере
-            isTaskClosed(branch)) {
+//    println branchLine.matches(/^$startBranch.*/) // тоже работает
+    def matchesBool =  branchLine.startsWith(startBranch)
 
-        // Удаление локальной ветки
-        print executeGitCommand("git branch -d $branch")
+    if ( matchesBool &&
+    // Если вообще можно удалять ветку с таким именем
+    !BRANCHES_TO_KEEP_ANYWAY.contains(branchLine)) {
+
+    // Удаление локальной ветки
+    print executeGitCommand("git branch -d $branchLine")
     }
 }
 /*
