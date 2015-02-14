@@ -5,7 +5,7 @@
 // shellCommand - строка, содержащая команду
 // workingDir - рабочая директория
 // Возвращаемое значение: консольный вывод команды
-final BRANCHES_TO_KEEP_ANYWAY = ['master', 'development', 'HEAD']
+final BRANCHES_TO_KEEP_ANYWAY = ['master', '*master', 'development','*development', 'HEAD']//Со * смешной хак
 
 if (args.size() < 2) {
     println "Usage: branchEraser repository-dir branchStartName"

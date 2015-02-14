@@ -1,10 +1,6 @@
 /**
  * Created by Alenka on 14.02.2015.
  */
-/*import groovy.time.TimeCategory
-// Получение groovy-wslite для работы с Mantis API
-@Grab(group='com.github.groovy-wslite', module='groovy-wslite', version='0.7.2')
-import wslite.soap.**/
 if (args.size() < 2) {
     println "Usage: branchCreator repository-dir branchStartName"
     return
