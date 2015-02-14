@@ -51,3 +51,8 @@ def createBranches= {param ->
 createBranches()
 executeGitCommand('git branch -d test')
 print executeGitCommand('git checkout master')
+
+
+/**
+ * example config - f:\groovy\groovyBranchEraser\ 3.6.1
+ */

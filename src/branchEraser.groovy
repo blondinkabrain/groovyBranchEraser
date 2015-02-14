@@ -72,3 +72,6 @@ def getLastCommitDate = { branchName ->
 def isTaskClosed = { branchName -> true }
 
 */
+/**
+ * example config - f:\groovy\groovyBranchEraser\ 3.6.1
+ */
