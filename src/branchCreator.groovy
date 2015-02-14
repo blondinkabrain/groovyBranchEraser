@@ -53,3 +53,5 @@ def createBranches= {param ->
     }
 }
 //createBranches()
+
+print executeGitCommand('git checkout master')
