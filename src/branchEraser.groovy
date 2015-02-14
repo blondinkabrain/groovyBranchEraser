@@ -60,6 +60,7 @@ mergedBranchesOutput.eachLine { branchLine ->
         print executeGitCommand("git branch -d $branchLine")
     }
 }
+System.console().readLine("Press any key to close")
 /*
 // Получение даты последнего коммита в указанной ветке
 // branchName - имя ветки
