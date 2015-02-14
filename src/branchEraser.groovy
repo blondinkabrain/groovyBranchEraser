@@ -1,5 +1,7 @@
 /**
  * Created by ad.Chistyakova on 13.02.15.
+ * Вдохновление отсюда:
+ * http://www.shafranov.net/blog/2013/03/25/udalieniie-starykh-vietok-v-git
  */
 // Шорткат для выполнения команды консоли
 // shellCommand - строка, содержащая команду
