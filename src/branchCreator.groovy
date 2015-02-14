@@ -49,9 +49,9 @@ def createBranches= {param ->
 
     for (int i = 0; i < 10; i++) {
         print goToTestBranch
-        print executeGitCommand('git checkout -b ${startBranch}-${i}')
+        print executeGitCommand("git checkout -b $startBranch-$i")
     }
 }
-//createBranches()
+createBranches()
 
 print executeGitCommand('git checkout master')
