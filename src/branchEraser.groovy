@@ -5,6 +5,12 @@
 // shellCommand - строка, содержащая команду
 // workingDir - рабочая директория
 // Возвращаемое значение: консольный вывод команды
+final BRANCHES_TO_KEEP_ANYWAY = ['master', 'development', 'HEAD']
+
+if (args.size() < 1) {
+    println "Usage: branchEraser repository-dir [remove-before-date]"
+    return
+}
 def executeShellCommand = { shellCommand, workingDir ->
     def shellCommandProc = shellCommand.execute(null, workingDir)
 
@@ -50,3 +56,15 @@ mergedBranchesOutput.eachLine { branchLine ->
         print executeGitCommand("git branch -d $branch")
     }
 }
+/*
+// Получение даты последнего коммита в указанной ветке
+// branchName - имя ветки
+// Возвращаемое значение: дата последнего коммита
+def getLastCommitDate = { branchName ->
+    def lastCommitDate = executeGitCommand("git log $branchName -1 --pretty=format:%ci")
+    Date.parse('yyyy-M-d H:m:s Z', lastCommitDate)
+}
+
+def isTaskClosed = { branchName -> true }
+
+*/
