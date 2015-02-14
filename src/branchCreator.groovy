@@ -51,7 +51,7 @@ def createBranches= {param ->
 createBranches()
 executeGitCommand('git branch -d test')
 print executeGitCommand('git checkout master')
-System.console().readLine("Press any key to close")
+System.console().readLine("Press Enter to close")
 
 /**
  * example config - f:\groovy\groovyBranchEraser\ 3.6.1
