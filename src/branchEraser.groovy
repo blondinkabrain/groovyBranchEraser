@@ -7,7 +7,9 @@
 // shellCommand - строка, содержащая команду
 // workingDir - рабочая директория
 // Возвращаемое значение: консольный вывод команды
-final BRANCHES_TO_KEEP_ANYWAY = ['master', '*master', 'development','*development', 'HEAD']//Со * смешной хак
+final BRANCHES_TO_KEEP_ANYWAY = ['master',
+        '*master','development','*development',  //Со * смешной хак
+        'HEAD', '3.7.0', '3.7.1']
 
 if (args.size() < 2) {
     println "Usage: branchEraser repository-dir branchStartName"
@@ -47,7 +49,7 @@ print executeGitCommand('git checkout master')
 print executeGitCommand('git fetch')
 print executeGitCommand('git remote prune origin')
 
-def mergedBranchesOutput = executeGitCommand('git branch')//('git branch --merged master')
+def mergedBranchesOutput = executeGitCommand('git branch --merged')//('git branch --merged master')
 mergedBranchesOutput.eachLine { branchLine ->
     branchLine = branchLine.replaceAll(" ", "")
 
