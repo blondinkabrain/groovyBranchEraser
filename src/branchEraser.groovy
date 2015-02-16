@@ -49,7 +49,7 @@ print executeGitCommand('git checkout master')
 print executeGitCommand('git fetch')
 print executeGitCommand('git remote prune origin')
 
-def mergedBranchesOutput = executeGitCommand('git branch --merged')//('git branch --merged master')
+def mergedBranchesOutput = executeGitCommand('git branch')//('git branch --merged master')
 mergedBranchesOutput.eachLine { branchLine ->
     branchLine = branchLine.replaceAll(" ", "")
 
@@ -61,7 +61,7 @@ mergedBranchesOutput.eachLine { branchLine ->
     !BRANCHES_TO_KEEP_ANYWAY.contains(branchLine)) {
 
         // Удаление локальной ветки
-        print executeGitCommand("git branch -d $branchLine")
+        print executeGitCommand("git branch -D $branchLine")
     }
 }
 System.console().readLine("Press Enter to close")
